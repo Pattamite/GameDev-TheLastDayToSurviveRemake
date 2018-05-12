@@ -12,20 +12,11 @@ public class CameraMovement : MonoBehaviour {
     public bool isFollowPlayer;
 
     private Camera mainCamera;
-    private float minX;
-    private float maxX;
-    private float minY;
-    private float maxY;
 
 
     void Start () {
         mainCamera = GetComponent<Camera>();
-        float halfHeight = mainCamera.orthographicSize;
-        float halfWidth = halfHeight * mainCamera.aspect;
-        minX = gameHorizontalMin + halfWidth;
-        maxX = gameHorizontalMax - halfWidth;
-        minY = gameVerticalMin + halfHeight;
-        maxY = gameVerticalMax - halfHeight;
+        
     }
 	
 	// Update is called once per frame
@@ -34,6 +25,13 @@ public class CameraMovement : MonoBehaviour {
     }
 
     private void FollowPlayer () {
+        float halfHeight = mainCamera.orthographicSize;
+        float halfWidth = halfHeight * mainCamera.aspect;
+        float minX = gameHorizontalMin + halfWidth;
+        float maxX = gameHorizontalMax - halfWidth;
+        float minY = gameVerticalMin + halfHeight;
+        float maxY = gameVerticalMax - halfHeight;
+
         float xPos = Mathf.Clamp(player.transform.position.x, minX, maxX);
         float yPos = Mathf.Clamp(player.transform.position.y, minY, maxY);
 
