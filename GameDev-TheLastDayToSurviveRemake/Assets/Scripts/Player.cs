@@ -6,12 +6,25 @@ public class Player : MonoBehaviour {
 
     public GameObject playerCharacter;
     public float movementSpeed = 1f;
+    public float movementBoxSize = 0.3f;
+    public float gameHorizontalMin;
+    public float gameHorizontalMax;
+    public float gameVerticalMin;
+    public float gameVerticalMax;
 
     private Camera mainCamera;
+    private float minX;
+    private float maxX;
+    private float minY;
+    private float maxY;
 
     void Start () {
         mainCamera = Camera.main;
 
+        minX = gameHorizontalMin + movementBoxSize;
+        maxX = gameHorizontalMax - movementBoxSize;
+        minY = gameVerticalMin + movementBoxSize;
+        maxY = gameVerticalMax - movementBoxSize;
     }
 
     void Update () {
@@ -39,6 +52,9 @@ public class Player : MonoBehaviour {
         if (movement.magnitude > 1) movement = movement.normalized;
 
         transform.Translate(movement * movementSpeed * Time.deltaTime);
-        //transform.position += movement * movementSpeed;
+
+        float xPos = Mathf.Clamp(transform.position.x, minX, maxX);
+        float yPos = Mathf.Clamp(transform.position.y, minY, maxY);
+        transform.position = new Vector3(xPos, yPos, transform.position.z);
     }
 }
