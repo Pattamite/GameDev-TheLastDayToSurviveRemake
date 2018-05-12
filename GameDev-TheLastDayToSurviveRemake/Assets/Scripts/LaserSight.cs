@@ -24,7 +24,6 @@ public class LaserSight : MonoBehaviour {
         if (isOn) {
             DrawLaser();
         }
-
     }
     private void DrawLaser () {
         Vector3 currentPosition = this.transform.position;

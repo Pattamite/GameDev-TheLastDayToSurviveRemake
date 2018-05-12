@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public GameObject playerCharacter;
+    public AssaultRifle assaultRifle;
     public float movementSpeed = 1f;
     public float movementBoxSize = 0.3f;
     public float gameHorizontalMin;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour {
     void Update () {
         UpdateMovement();
         UpdateRotation();
+        UpdateAttack();
     }
 
     private void UpdateRotation () {
@@ -56,5 +58,14 @@ public class Player : MonoBehaviour {
         float xPos = Mathf.Clamp(transform.position.x, minX, maxX);
         float yPos = Mathf.Clamp(transform.position.y, minY, maxY);
         transform.position = new Vector3(xPos, yPos, transform.position.z);
+    }
+
+    private void UpdateAttack () {
+        if(Input.GetAxisRaw("Fire1") == 1) {
+            assaultRifle.PullTrigger();
+        }
+        if (Input.GetAxisRaw("Reload") == 1) {
+            assaultRifle.Reload();
+        }
     }
 }
