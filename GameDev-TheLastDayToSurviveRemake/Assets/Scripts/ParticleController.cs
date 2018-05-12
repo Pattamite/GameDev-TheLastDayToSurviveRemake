@@ -15,9 +15,7 @@ public class ParticleController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        print(360 - playerCharacter.transform.eulerAngles.z);
         particleModule.startRotation = (360f - playerCharacter.transform.eulerAngles.z) / 180 * Mathf.PI;
-
     }
 
     public void EmitCount(int count) {

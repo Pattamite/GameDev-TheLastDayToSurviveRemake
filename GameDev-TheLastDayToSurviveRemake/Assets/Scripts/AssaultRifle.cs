@@ -12,6 +12,7 @@ public class AssaultRifle : MonoBehaviour {
     public AudioClip fireSound;
     public AudioClip reloadSound;
     public ParticleController bulletShellParticle;
+    public ParticleController magParticle;
 
     public int currentAmmo { get; private set; }
     public int pocketAmmo { get; private set; }
@@ -42,7 +43,7 @@ public class AssaultRifle : MonoBehaviour {
             bulletShellParticle.EmitCount(1);
             currentAmmo--;
             lastShotTime = Time.time;
-            AudioSource.PlayClipAtPoint(fireSound, transform.position);
+            AudioSource.PlayClipAtPoint(fireSound, transform.position, 0.4f);
         }
     }
 
@@ -55,6 +56,7 @@ public class AssaultRifle : MonoBehaviour {
             isReloading = true;
             lastReloadTime = Time.time;
             AudioSource.PlayClipAtPoint(reloadSound, transform.position);
+            magParticle.EmitCount(1);
         }
     }
 

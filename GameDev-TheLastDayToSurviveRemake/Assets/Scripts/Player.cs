@@ -64,6 +64,10 @@ public class Player : MonoBehaviour {
         if(Input.GetAxisRaw("Fire1") == 1) {
             assaultRifle.PullTrigger();
         }
+        else {
+            assaultRifle.ReleaseTrigger();
+        }
+
         if (Input.GetAxisRaw("Reload") == 1) {
             assaultRifle.Reload();
         }
