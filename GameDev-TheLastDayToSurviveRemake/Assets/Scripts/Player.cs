@@ -22,12 +22,13 @@ public class Player : MonoBehaviour {
     public int maxHealth = 100;
     public int startMetal = 100;
     public int metalCost = 10;
+    public AudioClip hitSound;
 
     public int currentHealth { get; private set; }
     public int currentMetal { get; private set; }
 
-    private static int STATE_PREP = 0;
-    private static int STATE_COMBAT = 1;
+    public static int STATE_PREP = 0;
+    public static int STATE_COMBAT = 1;
 
     private Camera mainCamera;
     private float minX;
@@ -56,10 +57,6 @@ public class Player : MonoBehaviour {
         UpdateMovement();
         UpdateRotation();
         UpdateReloadSlider();
-        if (Input.GetKeyDown(KeyCode.Tab)) {
-            currentState = (currentState + 1) % 2;
-            SetupState();
-        }
         if (currentState == STATE_PREP) {
             SetFencePreview();
         }
@@ -154,7 +151,10 @@ public class Player : MonoBehaviour {
 
     public void GetHit(int damage) {
         currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
+        if (currentHealth <= 0) currentHealth = 0;
+        else {
+            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        }
         CheckDead();
     }
 
@@ -162,5 +162,10 @@ public class Player : MonoBehaviour {
         if(currentHealth <= 0) {
             //TODO
         }
+    }
+
+    public void SetPlayerState (int value) {
+        currentState = value;
+        SetupState();
     }
 }

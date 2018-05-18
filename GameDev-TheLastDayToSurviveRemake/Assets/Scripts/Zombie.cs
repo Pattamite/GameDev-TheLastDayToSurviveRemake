@@ -7,16 +7,18 @@ public class Zombie : MonoBehaviour {
     public GameObject zombieSprite;
     public float speed = 1.5f;
     public int maxHealth = 100;
+    public AudioClip deadSound;
 
     private Player Player;
     private bool isDead;
     private int currentHealth;
+    private Collider2D collide;
 
 	void Start () {
         isDead = false;
         currentHealth = maxHealth;
         Player = GameObject.FindObjectOfType<Player>();
-
+        collide = GetComponent<Collider2D>();
     }
 	
 	void Update () {
@@ -45,8 +47,13 @@ public class Zombie : MonoBehaviour {
     }
 
     private void Dead () {
-        isDead = true;
-        animator.SetBool("IsDead", true);
+        if (!isDead) {
+            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(deadSound, transform.position);
+            isDead = true;
+            collide.enabled = false;
+            GameStateController.currentZombieLeft--;
+            animator.SetBool("IsDead", true);
+        }
     }
 
     public void Kill () {

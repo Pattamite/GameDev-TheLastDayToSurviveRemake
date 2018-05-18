@@ -44,7 +44,7 @@ public class AssaultRifle : MonoBehaviour {
             bulletShellParticle.EmitCount(1);
             currentAmmo--;
             lastShotTime = Time.time;
-            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(fireSound, transform.position, 0.4f);
+            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(fireSound, transform.position, 0.16f);
         }
     }
 
@@ -56,7 +56,7 @@ public class AssaultRifle : MonoBehaviour {
         if (!isReloading && (pocketAmmo > 0) && (currentAmmo < (magCapacity + 1))) {
             isReloading = true;
             lastReloadTime = Time.time;
-            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(reloadSound, transform.position);
+            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(reloadSound, transform.position, 0.8f);
             magParticle.EmitCount(1);
         }
     }

@@ -29,7 +29,7 @@ public class Fence : MonoBehaviour {
     private void CheckDead () {
         if(currentHP <= 0) {
             if(PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) {
-                AudioSource.PlayClipAtPoint(destroySound, transform.position, 0.7f);
+                AudioSource.PlayClipAtPoint(destroySound, transform.position, 0.4f);
             }
             Destroy(gameObject);
         }

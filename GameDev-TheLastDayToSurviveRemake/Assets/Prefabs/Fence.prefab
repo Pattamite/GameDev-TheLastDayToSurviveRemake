@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569c07d9640550c42b61438eeedc3c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 20
+  maxHP: 500
   destroySound: {fileID: 8300000, guid: da6dab87c4666b24183c718de4338327, type: 3}
   deploySound: {fileID: 8300000, guid: 61f06ec5ff5b1e048ad414de7bf5c49c, type: 3}
   hitSound: {fileID: 8300000, guid: 25e14475f266f494ebcb1190f101f81d, type: 3}
