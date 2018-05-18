@@ -23,6 +23,7 @@ public class AssaultRifle : MonoBehaviour {
     private bool isReady = true;
 
     void Start () {
+        if (!PlayerPrefs.HasKey(PlayerPrefKey.IS_AUDIO_ENABLE)) PlayerPrefs.SetInt(PlayerPrefKey.IS_AUDIO_ENABLE, 1);
         currentAmmo = magCapacity + 1;
         pocketAmmo = magCapacity * magPocket;
         timeBetweenShot = 60f / firerate;
@@ -35,7 +36,7 @@ public class AssaultRifle : MonoBehaviour {
 
     public void PullTrigger () {
         if (!isReloading && (currentAmmo <= 0) && isReady) {
-            AudioSource.PlayClipAtPoint(emptySound, transform.position);
+            if(PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(emptySound, transform.position);
             isReady = false;
         }
         else if (!isReloading && (currentAmmo > 0) && ((Time.time - lastShotTime) >= timeBetweenShot)) {
@@ -43,7 +44,7 @@ public class AssaultRifle : MonoBehaviour {
             bulletShellParticle.EmitCount(1);
             currentAmmo--;
             lastShotTime = Time.time;
-            AudioSource.PlayClipAtPoint(fireSound, transform.position, 0.4f);
+            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(fireSound, transform.position, 0.4f);
         }
     }
 
@@ -55,7 +56,7 @@ public class AssaultRifle : MonoBehaviour {
         if (!isReloading && (pocketAmmo > 0) && (currentAmmo < (magCapacity + 1))) {
             isReloading = true;
             lastReloadTime = Time.time;
-            AudioSource.PlayClipAtPoint(reloadSound, transform.position);
+            if (PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) AudioSource.PlayClipAtPoint(reloadSound, transform.position);
             magParticle.EmitCount(1);
         }
     }
