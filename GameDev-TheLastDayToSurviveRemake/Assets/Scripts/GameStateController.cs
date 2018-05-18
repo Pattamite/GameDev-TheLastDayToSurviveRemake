@@ -41,7 +41,6 @@ public class GameStateController : MonoBehaviour {
     }
 	
 	void Update () {
-        print(1 / Time.deltaTime);
 		if(currentState == STATE_PREP) {
             prepTimeLeft -= Time.deltaTime;
             if(prepTimeLeft <= 0f) {
