@@ -142,6 +142,11 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void Heal(int value) {
+        currentHealth += value;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+    }
+
     public void GetHit(int damage) {
         currentHealth -= damage;
         if (currentHealth < 0) currentHealth = 0;
