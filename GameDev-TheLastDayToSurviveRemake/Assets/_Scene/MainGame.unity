@@ -8113,11 +8113,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114131252830264026, guid: c15d9fd89677942499eef1ca11d5e320,
-        type: 2}
-      propertyPath: hitSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 25e14475f266f494ebcb1190f101f81d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c15d9fd89677942499eef1ca11d5e320, type: 2}
   m_IsPrefabParent: 0
