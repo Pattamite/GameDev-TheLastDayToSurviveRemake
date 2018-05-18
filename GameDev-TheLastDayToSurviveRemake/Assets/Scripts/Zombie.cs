@@ -39,14 +39,14 @@ public class Zombie : MonoBehaviour {
     }
 
 
-    public void GotHit(int damage) {
+    public void GetHit(int damage) {
         currentHealth -= damage;
         if (currentHealth <= 0) Dead();
     }
 
     private void Dead () {
         isDead = true;
-        animator.SetBool("isDead", true);
+        animator.SetBool("IsDead", true);
     }
 
     public void Kill () {

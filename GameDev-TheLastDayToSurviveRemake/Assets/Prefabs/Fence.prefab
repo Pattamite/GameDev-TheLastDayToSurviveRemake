@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 20
-  destroySound: {fileID: 0}
+  destroySound: {fileID: 8300000, guid: 88a5a0f6ce2fa1548a83c0affea70aed, type: 3}
 --- !u!212 &212526405716072982
 SpriteRenderer:
   m_ObjectHideFlags: 1

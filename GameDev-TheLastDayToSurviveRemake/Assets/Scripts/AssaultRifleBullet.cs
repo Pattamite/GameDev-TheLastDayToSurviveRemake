@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AssaultRifleBullet : MonoBehaviour {
-    public float damage = 40;
+    public int damage = 40;
     public float speed = 50;
     public float lifeTime = 5f;
 
@@ -23,4 +23,12 @@ public class AssaultRifleBullet : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    private void OnTriggerEnter2D (Collider2D collision) {
+        Zombie zombie = collision.gameObject.GetComponent<Zombie>();
+        if (zombie) {
+            zombie.GetHit(damage);
+            Destroy(gameObject);
+        }
+    }
 }

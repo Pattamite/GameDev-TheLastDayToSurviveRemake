@@ -10,7 +10,6 @@ public class Fence : MonoBehaviour {
 
 	void Start () {
         currentHP = maxHP;
-
     }
 	
 	void Update () {
@@ -19,12 +18,13 @@ public class Fence : MonoBehaviour {
 
     public void GetHit (int damage) {
         currentHP -= damage;
+        CheckDead();
     }
 
     private void CheckDead () {
         if(currentHP <= 0) {
             if(PlayerPrefs.GetInt(PlayerPrefKey.IS_AUDIO_ENABLE) > 0) {
-                AudioSource.PlayClipAtPoint(destroySound, transform.position);
+                AudioSource.PlayClipAtPoint(destroySound, transform.position, 2.0f);
             }
             Destroy(gameObject);
         }
