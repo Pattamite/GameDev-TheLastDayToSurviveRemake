@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour {
     public FencePreview fencePreview;
     public float fencePreviewDistance = 1f;
     public Object fence;
+    public Slider reloadSlider;
+    public Vector3 reloadSliderOffset;
 
     private static int STATE_PREP = 0;
     private static int STATE_COMBAT = 1;
@@ -41,6 +44,7 @@ public class Player : MonoBehaviour {
     void Update () {
         UpdateMovement();
         UpdateRotation();
+        UpdateReloadSlider();
         if (Input.GetKeyDown(KeyCode.Tab)) {
             currentState = (currentState + 1) % 2;
             SetupState();
@@ -77,6 +81,17 @@ public class Player : MonoBehaviour {
         float xPos = Mathf.Clamp(transform.position.x, minX, maxX);
         float yPos = Mathf.Clamp(transform.position.y, minY, maxY);
         transform.position = new Vector3(xPos, yPos, transform.position.z);
+    }
+
+    private void UpdateReloadSlider () {
+        if (assaultRifle.isReloading) {
+            reloadSlider.gameObject.GetComponent<RectTransform>().anchoredPosition = transform.position + reloadSliderOffset;
+            reloadSlider.value = assaultRifle.ReloadProgress();
+        }
+        else {
+            reloadSlider.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(100, 100, 100);
+        }
+        
     }
 
     private void SetFencePreview () {

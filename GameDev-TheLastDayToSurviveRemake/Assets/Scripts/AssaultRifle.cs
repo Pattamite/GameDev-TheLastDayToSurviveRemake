@@ -66,7 +66,7 @@ public class AssaultRifle : MonoBehaviour {
     }
 
     public float ReloadProgress () {
-        return ((Time.time - lastReloadTime) / reloadTime) * 100f;
+        return ((Time.time - lastReloadTime) / reloadTime);
     }
 
     public bool GrabOneMag () {
