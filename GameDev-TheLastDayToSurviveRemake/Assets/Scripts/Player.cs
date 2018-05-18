@@ -19,6 +19,9 @@ public class Player : MonoBehaviour {
     public Object fence;
     public Slider reloadSlider;
     public Vector3 reloadSliderOffset;
+    public int maxHealth = 100;
+
+    public int currentHealth { get; private set; }
 
     private static int STATE_PREP = 0;
     private static int STATE_COMBAT = 1;
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour {
     private float minY;
     private float maxY;
     private int currentState;
+    
 
     void Start () {
         mainCamera = Camera.main;
@@ -37,6 +41,9 @@ public class Player : MonoBehaviour {
         maxX = gameHorizontalMax - movementBoxSize;
         minY = gameVerticalMin + movementBoxSize;
         maxY = gameVerticalMax - movementBoxSize;
+
+        currentHealth = maxHealth;
+
         currentState = STATE_PREP;
         SetupState();
     }
@@ -132,6 +139,18 @@ public class Player : MonoBehaviour {
         else if (currentState == STATE_COMBAT) {
             laserSight.isOn = true;
             fencePreview.gameObject.SetActive(false);
+        }
+    }
+
+    public void GetHit(int damage) {
+        currentHealth -= damage;
+        if (currentHealth < 0) currentHealth = 0;
+        CheckDead();
+    }
+
+    private void CheckDead () {
+        if(currentHealth <= 0) {
+            //TODO
         }
     }
 }

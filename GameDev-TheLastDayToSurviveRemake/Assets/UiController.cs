@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UiController : MonoBehaviour {
     public Text ammoText;
     public Text reservedAmmoText;
+    public Text playerHealthText;
 
     private Player player;
     private AssaultRifle assaultRifle;
@@ -21,6 +22,6 @@ public class UiController : MonoBehaviour {
 	void Update () {
         ammoText.text = assaultRifle.currentAmmo.ToString();
         reservedAmmoText.text = assaultRifle.pocketAmmo.ToString();
-
+        playerHealthText.text = player.currentHealth.ToString();
     }
 }
