@@ -10,8 +10,9 @@ public class FencePreview : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        isDeployable = true;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

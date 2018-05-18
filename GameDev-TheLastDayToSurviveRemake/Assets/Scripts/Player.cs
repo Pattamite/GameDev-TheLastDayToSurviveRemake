@@ -13,6 +13,9 @@ public class Player : MonoBehaviour {
     public float gameVerticalMin;
     public float gameVerticalMax;
     public LaserSight laserSight;
+    public FencePreview fencePreview;
+    public float fencePreviewDistance = 1f;
+    public Object fence;
 
     private static int STATE_PREP = 0;
     private static int STATE_COMBAT = 1;
@@ -38,11 +41,16 @@ public class Player : MonoBehaviour {
     void Update () {
         UpdateMovement();
         UpdateRotation();
-        /*if (Input.GetKeyDown(KeyCode.Tab)) {
+        if (Input.GetKeyDown(KeyCode.Tab)) {
             currentState = (currentState + 1) % 2;
             SetupState();
-        }*/
-        if (currentState == STATE_COMBAT) UpdateAttack();
+        }
+        if (currentState == STATE_PREP) {
+            SetFencePreview();
+        }
+        if (currentState == STATE_COMBAT) {
+            UpdateAttack();
+        }
     }
 
     private void UpdateRotation () {
@@ -71,6 +79,23 @@ public class Player : MonoBehaviour {
         transform.position = new Vector3(xPos, yPos, transform.position.z);
     }
 
+    private void SetFencePreview () {
+        float rotation = playerCharacter.transform.eulerAngles.z;
+        float xPos = playerCharacter.transform.position.x + Mathf.Cos(rotation / 180f * Mathf.PI);
+        float yPos = playerCharacter.transform.position.y + Mathf.Sin(rotation / 180f * Mathf.PI);
+
+        fencePreview.gameObject.transform.eulerAngles = new Vector3(0, 0, rotation);
+        fencePreview.gameObject.transform.position = new Vector3(xPos, yPos, 0);
+
+        DeployFence(xPos, yPos, rotation);
+    }
+
+    private void DeployFence (float xPos, float yPos, float rotation) {
+        if(Input.GetButtonDown("Fire1") && fencePreview.isDeployable) {
+            Instantiate(fence, new Vector3(xPos, yPos, 0), Quaternion.Euler(0, 0, rotation));
+        }
+    }
+
     private void UpdateAttack () {
         if(Input.GetAxisRaw("Fire1") == 1) {
             assaultRifle.PullTrigger();
@@ -87,9 +112,11 @@ public class Player : MonoBehaviour {
     private void SetupState () {
         if(currentState == STATE_PREP) {
             laserSight.isOn = false;
+            fencePreview.gameObject.SetActive(true);
         }
         else if (currentState == STATE_COMBAT) {
             laserSight.isOn = true;
+            fencePreview.gameObject.SetActive(false);
         }
     }
 }
