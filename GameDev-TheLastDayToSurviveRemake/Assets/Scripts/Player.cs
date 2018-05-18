@@ -20,8 +20,11 @@ public class Player : MonoBehaviour {
     public Slider reloadSlider;
     public Vector3 reloadSliderOffset;
     public int maxHealth = 100;
+    public int startMetal = 100;
+    public int metalCost = 10;
 
     public int currentHealth { get; private set; }
+    public int currentMetal { get; private set; }
 
     private static int STATE_PREP = 0;
     private static int STATE_COMBAT = 1;
@@ -43,6 +46,7 @@ public class Player : MonoBehaviour {
         maxY = gameVerticalMax - movementBoxSize;
 
         currentHealth = maxHealth;
+        currentMetal = startMetal;
 
         currentState = STATE_PREP;
         SetupState();
@@ -113,7 +117,8 @@ public class Player : MonoBehaviour {
     }
 
     private void DeployFence (float xPos, float yPos, float rotation) {
-        if(Input.GetButtonDown("Fire1") && fencePreview.isDeployable) {
+        if(Input.GetButtonDown("Fire1") && fencePreview.isDeployable && currentMetal >= metalCost) {
+            currentMetal -= metalCost;
             Instantiate(fence, new Vector3(xPos, yPos, 0), Quaternion.Euler(0, 0, rotation));
         }
     }
