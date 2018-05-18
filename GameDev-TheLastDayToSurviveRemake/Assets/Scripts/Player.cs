@@ -12,12 +12,17 @@ public class Player : MonoBehaviour {
     public float gameHorizontalMax;
     public float gameVerticalMin;
     public float gameVerticalMax;
+    public LaserSight laserSight;
+
+    private static int STATE_PREP = 0;
+    private static int STATE_COMBAT = 1;
 
     private Camera mainCamera;
     private float minX;
     private float maxX;
     private float minY;
     private float maxY;
+    private int currentState;
 
     void Start () {
         mainCamera = Camera.main;
@@ -26,12 +31,18 @@ public class Player : MonoBehaviour {
         maxX = gameHorizontalMax - movementBoxSize;
         minY = gameVerticalMin + movementBoxSize;
         maxY = gameVerticalMax - movementBoxSize;
+        currentState = STATE_PREP;
+        SetupState();
     }
 
     void Update () {
         UpdateMovement();
         UpdateRotation();
-        UpdateAttack();
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+            currentState = (currentState + 1) % 2;
+            SetupState();
+        }
+        if (currentState == STATE_COMBAT) UpdateAttack();
     }
 
     private void UpdateRotation () {
@@ -70,6 +81,15 @@ public class Player : MonoBehaviour {
 
         if (Input.GetAxisRaw("Reload") == 1) {
             assaultRifle.Reload();
+        }
+    }
+
+    private void SetupState () {
+        if(currentState == STATE_PREP) {
+            laserSight.isOn = false;
+        }
+        else if (currentState == STATE_COMBAT) {
+            laserSight.isOn = true;
         }
     }
 }
