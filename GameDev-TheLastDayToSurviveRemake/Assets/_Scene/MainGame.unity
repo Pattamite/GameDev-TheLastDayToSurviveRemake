@@ -3713,6 +3713,7 @@ MonoBehaviour:
   gameHorizontalMax: 16
   gameVerticalMin: -9
   gameVerticalMax: 9
+  laserSight: {fileID: 1166786528}
 --- !u!1 &953486882
 GameObject:
   m_ObjectHideFlags: 0

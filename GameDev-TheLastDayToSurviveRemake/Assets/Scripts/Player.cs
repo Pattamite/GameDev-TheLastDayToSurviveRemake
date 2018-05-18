@@ -38,10 +38,10 @@ public class Player : MonoBehaviour {
     void Update () {
         UpdateMovement();
         UpdateRotation();
-        if (Input.GetKeyDown(KeyCode.Tab)) {
+        /*if (Input.GetKeyDown(KeyCode.Tab)) {
             currentState = (currentState + 1) % 2;
             SetupState();
-        }
+        }*/
         if (currentState == STATE_COMBAT) UpdateAttack();
     }
 
