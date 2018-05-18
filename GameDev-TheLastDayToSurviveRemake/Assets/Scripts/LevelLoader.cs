@@ -8,4 +8,8 @@ public class LevelLoader : MonoBehaviour {
     public void LoadLevel (string name) {
         SceneManager.LoadScene(name);
     }
+
+    public void CloseGame () {
+        Application.Quit();
+    }
 }
