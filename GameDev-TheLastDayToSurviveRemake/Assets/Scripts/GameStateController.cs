@@ -30,6 +30,7 @@ public class GameStateController : MonoBehaviour {
     private Player player;
     private int zombieNotSpawn;
     private float currentSpawnDelay;
+    private LevelLoader levelLoader;
 	
 	void Start () {
         if (!PlayerPrefs.HasKey(PlayerPrefKey.IS_MUSIC_ENABLE)) PlayerPrefs.SetInt(PlayerPrefKey.IS_MUSIC_ENABLE, 1);
@@ -37,6 +38,7 @@ public class GameStateController : MonoBehaviour {
         currentCombatSong = 1;
         currentWave = 1;
         player = GameObject.FindObjectOfType<Player>();
+        levelLoader = GameObject.FindObjectOfType<LevelLoader>();
         SetUpPrepPhase();
     }
 	
@@ -50,7 +52,8 @@ public class GameStateController : MonoBehaviour {
         if(currentState == STATE_COMBAT) {
             if(currentZombieLeft <= 0) {
                 if (currentWave == totalWave) {
-                    //TODO
+                    audioSource.Stop();
+                    levelLoader.LoadLevel("GameWon");
                 }
                 else {
                     currentWave++;
@@ -121,5 +124,10 @@ public class GameStateController : MonoBehaviour {
 
     public int GetTimeLeft () {
         return (int)prepTimeLeft + 1;
+    }
+
+    public void GameOver () {
+        audioSource.Stop();
+        levelLoader.LoadLevel("GameOver");
     }
 }

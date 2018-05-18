@@ -31,6 +31,7 @@ public class Player : MonoBehaviour {
     public static int STATE_COMBAT = 1;
 
     private Camera mainCamera;
+    private GameStateController stateController;
     private float minX;
     private float maxX;
     private float minY;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour {
 
     void Start () {
         mainCamera = Camera.main;
+        stateController = GameObject.FindObjectOfType<GameStateController>();
 
         minX = gameHorizontalMin + movementBoxSize;
         maxX = gameHorizontalMax - movementBoxSize;
@@ -160,7 +162,7 @@ public class Player : MonoBehaviour {
 
     private void CheckDead () {
         if(currentHealth <= 0) {
-            //TODO
+            stateController.GameOver();
         }
     }
 
